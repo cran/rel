@@ -1,0 +1,13 @@
+importFrom("stats", "printCoefmat", "qt", "quantile")
+importFrom("utils", "combn")
+
+export(
+  bags,
+  ckap,
+  gac,
+  kra,
+  spi
+)
+
+S3method(print, rel)
+S3method(summary, rel)
