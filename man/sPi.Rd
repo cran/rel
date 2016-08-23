@@ -1,8 +1,8 @@
-\name{spi}
-\alias{spi}
+\name{sPi}
+\alias{sPi}
 \title{Scott's pi}
 \description{Calculates Scott's pi (Scott, 1955) as an index of nominal or ordinal scale inter-rater agreement.}
-\usage{spi(data = NULL, weight = c("unweighted","linear","quadratic"), conf.level = 0.95)}
+\usage{sPi(data = NULL, weight = c("unweighted","linear","quadratic"), conf.level = 0.95)}
 \arguments{
   \item{data}{A numeric matrix with n subjects and two raters (n*2 matrix)}
   \item{weight}{A character string specifying "unweighted", "linear", or "quadratic", or a numeric categories*categories matrix with custom weights (see details).}
@@ -32,9 +32,9 @@ cw <- diag(ncol(matrix(0,5,5)))
 cw[cw!=diag(cw)] <- runif(20,0,1)
 
 #Unweighted pi
-spi(data=data, weight="unweighted", conf.level = 0.95)
+sPi(data=data, weight="unweighted", conf.level = 0.95)
 
 #Weighted pi with custom weights
-spi(data=data, weight=cw, conf.level = 0.95)
+sPi(data=data, weight=cw, conf.level = 0.95)
 }
 \keyword{univar}

@@ -1,4 +1,4 @@
-"gac" <-
+"gAC" <-
   function(data = NULL, kat = NULL, weight = c("unweighted","linear","quadratic"), conf.level = 0.95) {
     
     cl <- match.call()

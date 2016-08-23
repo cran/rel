@@ -1,4 +1,4 @@
-"ckap" <-
+"cKap" <-
 function(data = NULL, weight = c("unweighted", "linear", "quadratic"), std.err = c("Cohen", "Fleiss"), conf.level = 0.95) {
 
   cl <- match.call()

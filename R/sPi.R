@@ -1,4 +1,4 @@
-"spi" <-
+"sPi" <-
   function(data = NULL, weight = c("unweighted","linear","quadratic"), conf.level = 0.95) {
     
     cl <- match.call()

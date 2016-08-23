@@ -1,6 +1,5 @@
 Package: rel
-Version: 1.0.0
-Date: 2016-07-31
+Version: 1.1.0
 Title: Reliability Coefficients
 Author: Riccardo Lo Martire
 Maintainer: Riccardo Lo Martire <lomartire@kth.se>
@@ -8,6 +7,6 @@ Description: Derives point estimates with confidence intervals for Bennett et al
 Depends: stats, R (>= 2.14.0)
 License: GPL-3
 NeedsCompilation: no
-Packaged: 2016-07-31 15:14:35 UTC; Rico
+Packaged: 2016-08-23 09:06:55 UTC; Rico
 Repository: CRAN
-Date/Publication: 2016-07-31 17:57:27
+Date/Publication: 2016-08-23 14:57:52

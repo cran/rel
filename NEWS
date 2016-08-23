@@ -1,0 +1,9 @@
+Changes in version 1.1.0
+
+    o Krippendorff's alpha defined as zero when observed disagreement equals expected disagreement.
+    
+    o Default number of bootstrap replicates set to zero.
+  
+    o Functions renamed.
+
+    

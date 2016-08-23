@@ -1,8 +1,8 @@
-\name{ckap}
-\alias{ckap}
+\name{cKap}
+\alias{cKap}
 \title{Cohen's kappa and weighted kappa}
 \description{Calculates Cohen's kappa (Cohen, 1960) or weighted kappa (Cohen, 1968) as indices of nominal or ordinal scale inter-rater agreement, respectively.}
-\usage{ckap(data = NULL, weight = c("unweighted", "linear", "quadratic"), 
+\usage{cKap(data = NULL, weight = c("unweighted", "linear", "quadratic"), 
     std.err = c("Cohen", "Fleiss"), conf.level = 0.95)}
 \arguments{
   \item{data}{A numeric matrix with n subjects and two raters (n*2 matrix).}
@@ -36,12 +36,12 @@ cw <- diag(ncol(matrix(0,5,5)))
 cw[cw!=diag(cw)] <- runif(20,0,1)
 
 #Cohen's kappa with Fleiss corrected standard error formula
-ckap(data=data, weight="unweighted", std.err="Fleiss", conf.level = 0.95)
+cKap(data=data, weight="unweighted", std.err="Fleiss", conf.level = 0.95)
 
 #Weighted kappa with linear weight
-ckap(data=data, weight="linear", conf.level = 0.95)
+cKap(data=data, weight="linear", conf.level = 0.95)
 
 #Weighted kappa with custom weights
-ckap(data=data, weight=cw, conf.level = 0.95)
+cKap(data=data, weight=cw, conf.level = 0.95)
 }
 \keyword{univar}

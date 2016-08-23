@@ -2,11 +2,11 @@ importFrom("stats", "printCoefmat", "qt", "quantile")
 importFrom("utils", "combn")
 
 export(
-  bags,
-  ckap,
-  gac,
-  kra,
-  spi
+  bS,
+  cKap,
+  gAC,
+  krA,
+  sPi
 )
 
 S3method(print, rel)

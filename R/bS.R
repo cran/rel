@@ -1,4 +1,4 @@
-"bags" <- function(data = NULL, kat = NULL, conf.level = 0.95) {
+"bS" <- function(data = NULL, kat = NULL, conf.level = 0.95) {
   
   cl <- match.call()
   data <- data.matrix(data)

@@ -1,8 +1,8 @@
-\name{bags}
-\alias{bags}
+\name{bS}
+\alias{bS}
 \title{Bennett, Alpert, and Goldstein's S}
 \description{Calculates S (Bennett et al., 1954) as an index of nominal scale inter-rater agreement.}
-\usage{bags(data = NULL, kat = NULL, conf.level = 0.95)}
+\usage{bS(data = NULL, kat = NULL, conf.level = 0.95)}
 \arguments{
   \item{data}{A numeric matrix with n subjects and two measurements (n*2 matrix)}
   \item{kat}{Number of categories}
@@ -23,6 +23,6 @@
 data <- cbind(sample(1:5,200, replace=TRUE),sample(1:5,200, replace=TRUE))
 
 #Analysis
-bags(data=data, kat=5, conf.level=0.95)
+bS(data=data, kat=5, conf.level=0.95)
 }
 \keyword{univar}

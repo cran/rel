@@ -1,8 +1,8 @@
-\name{gac}
-\alias{gac}
+\name{gAC}
+\alias{gAC}
 \title{Gwet's AC1 and AC2}
 \description{Calculates Gwet's AC1 and AC2 (Gwet, 2008) as inter-/intra-rater agreement indices for nominal and ordinal scale data, respectively.}
-\usage{gac(data = NULL, kat = NULL, weight = c("unweighted","linear","quadratic"),
+\usage{gAC(data = NULL, kat = NULL, weight = c("unweighted","linear","quadratic"),
     conf.level = 0.95)}
 \arguments{
   \item{data}{A numeric matrix with n subjects and two raters (n*2 matrix)}
@@ -34,9 +34,9 @@ cw <- diag(ncol(matrix(0,5,5)))
 cw[cw!=diag(cw)] <- runif(20,0,1)
 
 #AC1
-gac(data=data, kat=5, weight="unweighted", conf.level = 0.95)
+gAC(data=data, kat=5, weight="unweighted", conf.level = 0.95)
 
 #AC2 with custom weights
-gac(data=data, kat=5, weight=cw, conf.level = 0.95)
+gAC(data=data, kat=5, weight=cw, conf.level = 0.95)
 }
 \keyword{univar}

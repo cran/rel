@@ -1,5 +1,5 @@
-"kra" <- 
-  function(data = NULL, metric = c("nominal","ordinal","interval","ratio"), conf.level = 0.95, R = 200) {
+"krA" <- 
+  function(data = NULL, metric = c("nominal","ordinal","interval","ratio"), conf.level = 0.95, R = 0) {
 
     cl <- match.call()
     data <- data.matrix(data)
@@ -28,12 +28,8 @@
         return(mat)
       }
       mat <- Reduce("+",lapply(X=1:nr,FUN=corr))
-      if (dim(mat)[1]==1 && dim(mat)[2]==1){
-        stop("Krippendorff's alpha cannot be calculated due to insufficient variation!")
-      } else{
-        marg <- rowSums(mat)
-      }
-    
+      marg <- rowSums(mat)
+      
       #Metrics
       suppressWarnings(
       if (metric == "ratio"){  
@@ -64,7 +60,11 @@
       })
     
       #Point estimate
-      vs <- combn(1:mval,2) 
+      if (dim(mat)[1]==1 && dim(mat)[2]==1){
+        vs <- matrix(c(1,1),2,1)
+      } else {
+        vs <- combn(1:mval,2) 
+      }
       ka <- 1-(sum(marg)-1)*sum(mat[upper.tri(mat, diag = FALSE)]*metric[upper.tri(metric,diag=FALSE)])/
         sum(marg[vs[1,]]*marg[vs[2,]]*t(metric[lower.tri(metric,diag=FALSE)]))
       return(list(ka,method))
@@ -72,8 +72,13 @@
     out <- A(data=data,metric=metric)
     
     #Bootstrapped confidence intervals
-    a <- unlist(lapply(X=1:R,function(x) A(data[sample(nr, replace=TRUE),], metric=metric)[[1]]))
-    res.boot <- quantile(x=a, probs=c((1-conf.level)/2,conf.level+(1-conf.level)/2), na.rm=TRUE) 
+    if (R == 0 || is.nan(out[[1]])){
+      res.boot <- c(NA,NA)
+    } else{
+      a <- unlist(lapply(X=1:R,function(x) A(data[sample(nr, replace=TRUE),], metric=metric)[[1]]))
+      res.boot <- quantile(x=a, probs=c((1-conf.level)/2,conf.level+(1-conf.level)/2), na.rm=TRUE) 
+    }
+    out[is.nan(out[[1]])] <- 0
     attr(res.boot,"names") <- "Const"
     
     res <- structure(list(method = out[[2]],
