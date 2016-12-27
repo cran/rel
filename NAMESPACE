@@ -1,4 +1,4 @@
-importFrom("stats", "printCoefmat", "qt", "quantile")
+importFrom("stats", "printCoefmat", "qt", "quantile","na.omit", "var")
 importFrom("utils", "combn")
 
 export(

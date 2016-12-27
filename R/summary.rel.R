@@ -17,7 +17,19 @@
                          sample=paste(object$sample, "subjects"))
              res
            },
-           KrA = {
+           cKap = {
+             res <- list(call=object$call,
+                         coefficients=cbind("Estimate"=object$est,
+                                            "StdErr"=object$std.err,
+                                            "LowerCI"=object$ci.lower,
+                                            "UpperCI"=object$ci.upper),
+                         kmax=object$kmax,
+                         kmax.prop=object$kmax.prop,
+                         conf.level=paste(object$conf.level*100,"%",sep=""),
+                         sample=paste(object$sample, "subjects"))
+             res
+           },
+           krA = {
              res <- list(call=object$call,
                          coefficients=cbind("Estimate"=object$est,
                                             "LowerCI"=object$ci.lower,

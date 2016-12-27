@@ -1,9 +1,20 @@
 Changes in version 1.1.0
 
-    o Krippendorff's alpha defined as zero when observed disagreement equals expected disagreement.
+    o krA point estimate defined as zero when observed disagreement equals expected disagreement.
     
-    o Default number of bootstrap replicates set to zero.
+    o Default number of bootstrap replicates for krA set to zero.
   
     o Functions renamed.
 
+Changes in version 1.2.0
+
+    o Numeric data matrices no longer required.
+    
+    o Incomplete cases omitted listwise for bS, cKap, gAC, and sPi.
+      
+    o In case of more than two raters, cKap and sPi now generalises to Conger's kappa and Fleiss' kappa, respectively. 
+  
+    o cKap standard error now derived via Fleiss et als., formula from 1969 by default.
+      
+    o Maximum possible kappa (kmax) and proportion of kappa/kmax added to cKap.
     

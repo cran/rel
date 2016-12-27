@@ -1,16 +1,13 @@
 "bS" <- function(data = NULL, kat = NULL, conf.level = 0.95) {
   
   cl <- match.call()
-  data <- data.matrix(data)
+  data <- as.matrix(na.omit(data))
   nr <- nrow(data)
   nc <- ncol(data)
+  data <- matrix(as.numeric(as.factor(data)),nr,nc)
   
   if (nc!=2){
     stop("The data frame needs to be formatted as a n*2 matrix!")
-  } else if (!is.numeric(data)){
-    stop("A numeric data matrix is required")
-  } else if (min(data,na.rm=TRUE)<1){
-    data <- data+abs(1-min(data,na.rm=TRUE))
   } 
   
   if (is.numeric(kat)){

@@ -1,11 +1,11 @@
 \name{bS}
 \alias{bS}
 \title{Bennett, Alpert, and Goldstein's S}
-\description{Calculates S (Bennett et al., 1954) as an index of nominal scale inter-rater agreement.}
+\description{Calculates S as an index of nominal scale agreement between two raters.}
 \usage{bS(data = NULL, kat = NULL, conf.level = 0.95)}
 \arguments{
-  \item{data}{A numeric matrix with n subjects and two measurements (n*2 matrix)}
-  \item{kat}{Number of categories}
+  \item{data}{A matrix with n subjects and two raters (n*2 matrix)}
+  \item{kat}{Number of possible categories}
   \item{conf.level}{Confidence level of the interval.}
 }
 \value{

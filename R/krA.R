@@ -2,20 +2,15 @@
   function(data = NULL, metric = c("nominal","ordinal","interval","ratio"), conf.level = 0.95, R = 0) {
 
     cl <- match.call()
-    data <- data.matrix(data)
+    data <- as.matrix(data)
     nr <- nrow(data)
     nc <- ncol(data)
+    data <- matrix(as.numeric(as.factor(data)),nr,nc)
     na <- sum(is.na(data))/(nr*nc)*100
-    
-    if (!is.numeric(data)){
-      stop("A numeric data matrix is required")
-    } else if (min(data,na.rm=TRUE)<1){
-      data <- data+abs(1-min(data,na.rm=TRUE))
-    } 
     
     A <- function(data,metric){
     
-      #Continguency table
+      #Contingency table
       mval <- max(data,na.rm=TRUE)
       mu <- rowSums(!is.na(data))
       ap <- expand.grid(seq_len(nc),seq_len(nc))
@@ -90,6 +85,6 @@
                           conf.level = conf.level,
                           ci.lower = res.boot[1],
                           ci.upper = res.boot[2]),
-                     class=c("rel","KrA"))
+                     class=c("rel","krA"))
     return(res)
   }
