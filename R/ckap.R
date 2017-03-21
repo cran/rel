@@ -1,5 +1,6 @@
-"cKap" <-
-function(data = NULL, weight = c("unweighted", "linear", "quadratic"), std.err = c("Fleiss", "Cohen"), conf.level = 0.95, R = 0) {
+"ckap" <-
+  function(data = NULL, weight = c("unweighted", "linear", "quadratic"), 
+           std.err = c("Fleiss", "Cohen"), conf.level = 0.95, R = 0) {
 
   cl <- match.call()
   data <- as.matrix(na.omit(data))
@@ -93,15 +94,16 @@ function(data = NULL, weight = c("unweighted", "linear", "quadratic"), std.err =
   
   res <- structure(list(method = method,
                         call = cl,
-                        raters = nc,
+                        obs = nc,
                         sample = nr,
                         est = k,
-                        std.err = se,
+                        se = se,
                         conf.level = conf.level,
-                        ci.lower = lb,
-                        ci.upper = ub,
+                        lb = lb,
+                        ub = ub,
                         kmax = km,
-                        kmax.prop = kmp),
-                   class=c("rel","cKap"))
+                        kmax.prop = kmp,
+                        data = data),
+                   class = c("rel","ckap"))
   return(res)
 }

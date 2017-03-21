@@ -1,5 +1,6 @@
-"sPi" <-
-  function(data = NULL, weight = c("unweighted","linear","quadratic"), conf.level = 0.95) {
+"spi" <-
+  function(data = NULL, weight = c("unweighted","linear","quadratic"), 
+           conf.level = 0.95) {
     
     cl <- match.call()
     data <- as.matrix(na.omit(data))
@@ -54,13 +55,14 @@
     
     res <- structure(list(method = method,
                           call = cl,
-                          raters = nc,
+                          obs = nc,
                           sample = nr,
                           est = spi,
-                          std.err = se,
+                          se = se,
                           conf.level = conf.level,
-                          ci.lower = lb,
-                          ci.upper = ub),
-                     class=c("rel","sPi"))
+                          lb = lb,
+                          ub = ub,
+                          data = data),
+                     class=c("rel","spi"))
     return(res)
   }

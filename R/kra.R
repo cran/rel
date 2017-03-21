@@ -1,5 +1,6 @@
-"krA" <- 
-  function(data = NULL, metric = c("nominal","ordinal","interval","ratio"), conf.level = 0.95, R = 0) {
+"kra" <- 
+  function(data = NULL, metric = c("nominal","ordinal","interval","ratio"), 
+           conf.level = 0.95, R = 0) {
 
     cl <- match.call()
     data <- as.matrix(data)
@@ -78,13 +79,14 @@
     
     res <- structure(list(method = out[[2]],
                           call = cl,
-                          raters = nc,
+                          obs = nc,
                           sample = nr,
                           na = na,
                           est = out[[1]],
                           conf.level = conf.level,
-                          ci.lower = res.boot[1],
-                          ci.upper = res.boot[2]),
-                     class=c("rel","krA"))
+                          lb = res.boot[1],
+                          ub = res.boot[2],
+                          data = data),
+                     class = c("rel","kra"))
     return(res)
   }

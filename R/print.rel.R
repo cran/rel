@@ -9,36 +9,52 @@
     switch(value,
       rel = {
         cat("Call:\n"); print(x$call); cat("\n")
-        printCoefmat(cbind("Estimate"=x$est, "StdErr"=x$std.err,
-                           "LowerCI"=x$ci.lower, "UpperCI"=x$ci.upper))
+        printCoefmat(cbind("Estimate"=x$est, "StdErr"=x$se,
+                           "LowerCB"=x$lb, "UpperCB"=x$ub))
         cat(paste("\n","Confidence level = ",x$conf.level*100,"%","\n",sep=""))
         cat(paste("Sample size = ",x$sample,sep=""))
       },
-      cKap = {
+      ckap = {
         cat("Call:\n"); print(x$call); cat("\n")
-        printCoefmat(cbind("Estimate"=x$est, "StdErr"=x$std.err,
-                           "LowerCI"=x$ci.lower, "UpperCI"=x$ci.upper))
+        printCoefmat(cbind("Estimate"=x$est, "StdErr"=x$se,
+                           "LowerCB"=x$lb, "UpperCB"=x$ub))
         cat(paste("\n","Maximum kappa = ",round(x$kmax,2),sep=""))
         cat(paste("\n","Kappa/maximum kappa = ",round(x$kmax.prop,2),sep=""))
         cat(paste("\n","Confidence level = ",x$conf.level*100,"%","\n",sep=""))
-        cat(paste("Raters = ",x$raters,"\n",sep=""))
+        cat(paste("Observations = ",x$obs,"\n",sep=""))
         cat(paste("Sample size = ",x$sample,sep=""))
       },
-      krA = {
+      icc = {
         cat("Call:\n"); print(x$call); cat("\n")
-        printCoefmat(cbind("Estimate"=x$est, "LowerCI"=x$ci.lower, 
-                           "UpperCI"=x$ci.upper))
+        printCoefmat(cbind("Estimate"=x$est, "LowerCB"=x$lb, 
+                           "UpperCB"=x$ub))
         cat(paste("\n","Confidence level = ",x$conf.level*100,"%","\n",sep=""))
-        cat(paste("Raters = ",x$raters,"\n",sep=""))
+        cat(paste("Observations = ",x$obs,"\n",sep=""))
         cat(paste("Sample size = ",x$sample,"\n",sep=""))
       },
-      sPi = {
+      kra = {
         cat("Call:\n"); print(x$call); cat("\n")
-        printCoefmat(cbind("Estimate"=x$est, "StdErr"=x$std.err,
-                           "LowerCI"=x$ci.lower, "UpperCI"=x$ci.upper))
+        printCoefmat(cbind("Estimate"=x$est, "LowerCB"=x$lb, 
+                           "UpperCB"=x$ub))
         cat(paste("\n","Confidence level = ",x$conf.level*100,"%","\n",sep=""))
-        cat(paste("Raters = ",x$raters,"\n",sep=""))
+        cat(paste("Observations = ",x$obs,"\n",sep=""))
+        cat(paste("Sample size = ",x$sample,"\n",sep=""))
+      },
+      spi = {
+        cat("Call:\n"); print(x$call); cat("\n")
+        printCoefmat(cbind("Estimate"=x$est, "StdErr"=x$se,
+                           "LowerCB"=x$lb, "UpperCB"=x$ub))
+        cat(paste("\n","Confidence level = ",x$conf.level*100,"%","\n",sep=""))
+        cat(paste("Observations = ",x$obs,"\n",sep=""))
         cat(paste("Sample size = ",x$sample,sep=""))
+      },
+      sem = {
+        cat("Call:\n"); print(x$call); cat("\n")
+        printCoefmat(cbind("Estimate"=x$est, "LowerCB"=x$lb, 
+                           "UpperCB"=x$ub))
+        cat(paste("\n","Confidence level = ",x$conf.level*100,"%","\n",sep=""))
+        cat(paste("Observations = ",x$obs,"\n",sep=""))
+        cat(paste("Sample size = ",x$sample,"\n",sep=""))
       }
     )
   }

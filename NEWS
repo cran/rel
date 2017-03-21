@@ -1,11 +1,13 @@
-Changes in version 1.1.0
+Changes in version 1.3.0
 
-    o krA point estimate defined as zero when observed disagreement equals expected disagreement.
+    o icc and sem added.
     
-    o Default number of bootstrap replicates for krA set to zero.
-  
-    o Functions renamed.
-
+    o Plot function added for rel objects.
+      
+    o Ratio weight added to gAC.
+    
+    o Functions renamed (sorry).
+    
 Changes in version 1.2.0
 
     o Numeric data matrices no longer required.
@@ -17,4 +19,11 @@ Changes in version 1.2.0
     o cKap standard error now derived via Fleiss et als., formula from 1969 by default.
       
     o Maximum possible kappa (kmax) and proportion of kappa/kmax added to cKap.
+
+Changes in version 1.1.0
+
+    o krA point estimate defined as zero when observed disagreement equals expected disagreement.
     
+    o Default number of bootstrap replicates for krA set to zero.
+  
+    o Functions renamed.

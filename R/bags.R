@@ -1,4 +1,4 @@
-"bS" <- function(data = NULL, kat = NULL, conf.level = 0.95) {
+"bags" <- function(data = NULL, kat = NULL, conf.level = 0.95) {
   
   cl <- match.call()
   data <- as.matrix(na.omit(data))
@@ -29,12 +29,14 @@
   
   res <- structure(list(method = "Bennett et al.'s S",
                         call = cl,
+                        obs = nc,
                         sample = nr,
                         est = S,
-                        std.err = se,
+                        se = se,
                         conf.level = conf.level,
-                        ci.lower = lb,
-                        ci.upper = ub),
-                      class="rel")
+                        lb = lb,
+                        ub = ub,
+                        data = data),
+                      class = "rel")
   return(res)
 }

@@ -1,13 +1,21 @@
-importFrom("stats", "printCoefmat", "qt", "quantile","na.omit", "var")
+importFrom("graphics", "abline", "axis", "layout", "legend", "par",
+           "plot", "plot.new", "points", "segments")
+importFrom("grDevices", "rgb")
+importFrom("stats", "na.omit", "printCoefmat", "qf", "qt", 
+           "quantile", "sd", "var")
 importFrom("utils", "combn")
 
+
 export(
-  bS,
-  cKap,
-  gAC,
-  krA,
-  sPi
+  bags,
+  ckap,
+  gac,
+  icc,
+  kra,
+  sem,
+  spi
 )
 
+S3method(plot, rel)
 S3method(print, rel)
 S3method(summary, rel)

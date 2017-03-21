@@ -1,5 +1,6 @@
-"gAC" <-
-  function(data = NULL, kat = NULL, weight = c("unweighted","linear","quadratic"), conf.level = 0.95) {
+"gac" <-
+  function(data = NULL, kat = NULL, weight = c("unweighted","linear","quadratic","ratio"), 
+           conf.level = 0.95) {
     
     cl <- match.call()
     data <- as.matrix(na.omit(data))
@@ -33,6 +34,9 @@
     } else if (weight == "quadratic"){
       w <- 1-(abs(row(mat)-col(mat))/(mval-1))^2
       method = paste("Gwet's quadratically-weighted AC2")
+    } else if (weight == "ratio"){
+      w <- 1-((row(mat)-col(mat))/(row(mat)+col(mat)))^2/((mval-1)/(mval+1))^2
+      method = paste("Gwet's ratio-weighted AC2")
     } else {
       w <- diag(mval)
       method = paste("Gwet's AC1")
@@ -50,12 +54,14 @@
     
     res <- structure(list(method = method,
                           call = cl,
+                          obs = nc,
                           sample = nr,
                           est = g,
-                          std.err = se,
+                          se = se,
                           conf.level = conf.level,
-                          ci.lower = lb,
-                          ci.upper = ub),
-                     class="rel")
+                          lb = lb,
+                          ub = ub,
+                          data = data),
+                     class = "rel")
     return(res)
   }

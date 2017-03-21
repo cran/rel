@@ -1,11 +1,11 @@
-\name{krA}
-\alias{krA}
-\title{Krippendorff's Alpha}
-\description{Calculates Krippendorff's Alpha as an index of agreement for nominal, ordinal, interval, or ratio scale data.}
-\usage{krA(data = NULL, metric = c("nominal","ordinal","interval","ratio"), 
+\name{kra}
+\alias{kra}
+\title{Krippendorff's alpha}
+\description{Calculates Krippendorff's alpha as an index of agreement for nominal, ordinal, interval, or ratio scale data.}
+\usage{kra(data = NULL, metric = c("nominal","ordinal","interval","ratio"), 
     conf.level = 0.95, R = 0)}
 \arguments{
-  \item{data}{A matrix with n subjects and n raters (subject*rater matrix).}
+  \item{data}{A matrix with n subjects and m observations (n*m matrix).}
   \item{metric}{Data scale metric of ratings specified as "nominal, "ordinal", "interval", or "ratio".}
   \item{conf.level}{Confidence level of the interval.}
   \item{R}{Number of bootstrap replicates used to estimate the confidence interval.}
@@ -19,8 +19,9 @@ Krippendorff's alpha is a measure of observed disagreement relative to disagreem
 \item{sample}{Sample size}
 \item{na}{Percent of missing values}
 \item{est}{Point estimate.}
-\item{ci.lower}{Lower confidence boundary}
-\item{ci.upper}{Upper confidence boundary}
+\item{lb}{Lower confidence boundary}
+\item{ub}{Upper confidence boundary}
+\item{data}{analyzed data}
 }
 \references{
 Krippendorff, K. (2004). Content Analysis: An Introduction to Its Methodology. Thousand Oaks, CA: Sage. 
@@ -34,6 +35,6 @@ data <- cbind(rbind(1,2,3,3,2,1,4,1,2,NA,NA,NA),
               rbind(1,2,3,3,2,4,4,1,2,5,1,NA))
 
 #Krippendorff's alpha for ordinal scale data
-krA(data = data, metric = "ordinal", conf.level = 0.95, R = 0)
+kra(data = data, metric = "ordinal", conf.level = 0.95, R = 0)
 }
 \keyword{univar}
