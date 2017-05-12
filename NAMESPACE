@@ -2,7 +2,7 @@ importFrom("graphics", "abline", "axis", "layout", "legend", "par",
            "plot", "plot.new", "points", "segments")
 importFrom("grDevices", "rgb")
 importFrom("stats", "na.omit", "printCoefmat", "qf", "qt", 
-           "quantile", "sd", "var")
+           "qchisq", "quantile", "sd", "var")
 importFrom("utils", "combn")
 
 

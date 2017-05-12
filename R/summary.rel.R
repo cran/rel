@@ -59,7 +59,8 @@
                                     "UpperCB"=object$ub),
                          conf.level=paste(object$conf.level*100,"%",sep=""),
                          obs=paste(object$obs, "observations"),
-                         sample=paste(object$sample, "subjects"))
+                         sample=paste(object$sample, "subjects"),
+                         missing=paste0(object$na, " missing values"))
              res
            },
            spi = {

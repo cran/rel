@@ -19,6 +19,8 @@
              plot.new()
              legend("center",legend=paste("Obs",1:x$obs),
                     pch=26-1:x$obs,col=1+1:x$obs, bty="n", ncol=x$obs)
+             layout(cbind(1,1))
+             par(mar = c(5,4,4,2))
            },
            num = {
              layout(rbind(1,2), heights=c(6,1)) 
@@ -71,11 +73,16 @@
              plot(apply(x$data,1,sd), lwd=1, pch=15, col=10,
                   main="Error per subject", xlab="Subject", ylab="Data value")
              segments(x0=1:dim(x$data)[1], y0=apply(x$data,1,sd), y1=0, col=rgb(0,0,0,0.2))
-             abline(h=mean(apply(x$data,1,sd)),lty=2)
+             abline(h=x$est,lty=2)
              par(mar=c(0, 0, 0, 0))
              plot.new()
              legend("center",legend=c("Subject error   ","Mean error"), lty=c(NA,2),
                     pch=c(15,NA),col=c(10,1), bty="n", ncol=2)
-           }
+             
+             readline(prompt = "Hit <Enter> to see next plot:")
+             
+             layout(cbind(1,1))
+             par(mar = c(5,4,4,2))
+             }
     )
   }
