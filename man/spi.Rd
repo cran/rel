@@ -19,6 +19,7 @@ Scott's pi measures the chance-corrected agreement for two observations (Scott, 
 \item{se}{Standard error}
 \item{lb}{Lower confidence boundary}
 \item{ub}{Upper confidence boundary}
+\item{cont.table}{contingency table}
 \item{data}{analyzed data}
 }
 \references{

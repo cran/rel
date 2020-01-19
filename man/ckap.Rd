@@ -24,6 +24,7 @@ Cohen's kappa measures the chance-corrected agreement for two observations (Cohe
 \item{ub}{Upper confidence boundary}
 \item{kmax}{The maximum value of kappa permitted by the marginal distributions}
 \item{kmax.prop}{The proportion of the kappa point estimate to the maximum possible kappa value}
+\item{cont.table}{contingency table}
 \item{data}{analyzed data}
 }
 \references{

@@ -1,5 +1,5 @@
 "gac" <-
-  function(data = NULL, kat = NULL, weight = c("unweighted","linear","quadratic","ratio"), 
+  function(data = NULL, kat = NULL, weight = c("unweighted", "linear", "quadratic", "ratio"), 
            conf.level = 0.95) {
     
     cl <- match.call()
@@ -7,61 +7,43 @@
     nr <- nrow(data)
     nc <- ncol(data)
     data <- matrix(as.numeric(as.factor(data)),nr,nc)
+    K <- ifelse(is.numeric(kat),kat,max(data))
+    t <- qt(1-(1-conf.level)/2,nr-1)
+    method <-
+      paste0(
+        ifelse(is.numeric(weight), "custom-weighted", weight),
+        ifelse(grep("^unweighted$",weight), " AC1", " AC2")
+      )
     
-    if (nc!=2){
+    # Warning
+    if (nc != 2) {
       stop("The data frame needs to be formatted as a n*2 matrix!")
-    } 
-    
-    if (is.numeric(kat)){
-      mval <- kat
-    } else{
-      mval <- max(data,na.rm=TRUE)
     }
     
-    mat <- matrix(0,mval,mval)
-    p.obs <- table(data[,1],data[,2])/nr
-    mat[as.numeric(rownames(p.obs)), as.numeric(colnames(p.obs))] <- p.obs
-    marg <- (rowSums(mat)+colSums(mat))/2
-    t <- qt(1-(1-conf.level)/2,nr-1)
+    # Contingency table
+    mat <- ctab(data, K, cl) / nr
+    marg <- (rowSums(mat) + colSums(mat)) / 2
     
-    suppressWarnings(
-    if (is.numeric(weight)) {
-      w <- weight
-      method = paste("Gwet's custom-weighted AC2")
-    } else if (weight == "linear"){
-      w <- 1-(abs(row(mat)-col(mat))/(mval-1))
-      method = paste("Gwet's linearly-weighted AC2")
-    } else if (weight == "quadratic"){
-      w <- 1-(abs(row(mat)-col(mat))/(mval-1))^2
-      method = paste("Gwet's quadratically-weighted AC2")
-    } else if (weight == "ratio"){
-      w <- 1-((row(mat)-col(mat))/(row(mat)+col(mat)))^2/((mval-1)/(mval+1))^2
-      method = paste("Gwet's ratio-weighted AC2")
-    } else {
-      w <- diag(mval)
-      method = paste("Gwet's AC1")
-    })
+    # Weight
+    w <- wgts(weight, cl, mat, K)
+    
+    # Point estimate
+    po <- sum(mat * w)
+    pe <- sum(w) * sum(marg * (1 - marg)) / (K * (K - 1))
+    est <- (po - pe) / (1 - pe)
+    names(est) <- "Const"
+    
+    # Standard error
+    wmat <- sum(mat * (w-2*(1-est)*sum(w)*(1-(outer(marg,marg,"+"))/2)/(K*(K-1)))^2) 
+    se <- sqrt( (1/(nr*(1-pe)^2))*(wmat-(po-2*(1-est)*pe)^2) )
+    ub <- est+(se*t)
+    lb <- est-(se*t)
 
-    po <- sum(mat*w)
-    pe <- sum(w) * sum(marg*(1-marg))/(mval*(mval-1))
-    g <- (po-pe)/(1-pe)
-    names(g) <- "Const"
+    # Export
+    y <- structure(list(method=method, call=cl, obs=nc, sample=nr,
+                        est=est, se=se, conf.level=conf.level, 
+                        lb=lb, ub=ub, mat=mat, data=data),
+                   class = "rel")
+    return(y)
     
-    wmat <- sum(mat * (w-2*(1-g)*sum(w)*(1-(outer(marg,marg,"+"))/2)/(mval*(mval-1)))^2) 
-    se <- sqrt( (1/(nr*(1-pe)^2))*(wmat-(po-2*(1-g)*pe)^2) )
-    ub <- g+(se*t)
-    lb <- g-(se*t)
-    
-    res <- structure(list(method = method,
-                          call = cl,
-                          obs = nc,
-                          sample = nr,
-                          est = g,
-                          se = se,
-                          conf.level = conf.level,
-                          lb = lb,
-                          ub = ub,
-                          data = data),
-                     class = "rel")
-    return(res)
   }

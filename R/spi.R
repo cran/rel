@@ -7,38 +7,28 @@
     nr <- nrow(data)
     nc <- ncol(data)
     data <- matrix(as.numeric(as.factor(data)),nr,nc)
-    mval <- max(data,na.rm=TRUE)
+    K <- max(data)
     t <- qt(1-(1-conf.level)/2,nr-1)
     
     if (nc==2){
-      mat <- matrix(0,mval,mval)
-      obs <- table(data[,1],data[,2])
-      mat[as.numeric(rownames(obs)), as.numeric(colnames(obs))] <- obs
-      marg <- rowSums(mat)+colSums(mat)
+      
+      # Contingency table
+      mat <- ctab(data, K, cl)
+      
+      # Weight
+      w <- wgts(weight, cl, mat, K)
+      method <-
+        paste0(ifelse(is.numeric(weight), "custom-weighted", weight), ' pi')
 
-      suppressWarnings(
-      if (is.numeric(weight)){
-        w <- weight
-        method = paste("Custom-weighted pi")
-      } else if (weight == "linear"){
-        w <- 1-(abs(row(mat)-col(mat))/(mval-1))
-        method = paste("Linearly-weighted pi")
-      } else if (weight == "quadratic"){
-        w <- 1-(abs(row(mat)-col(mat))/(mval-1))^2
-        method = paste("Quadratically-weighted pi")
-      } else{
-        w <- diag(ncol(mat))
-        method = paste("Scott's pi")
-      })
-    
+      # Point estimate/standard error
       wmat <- (mat/nr)*w
       po <- sum(wmat)
-      pe <- sum((marg/(nr*2))^2*w) 
+      pe <- sum(((rowSums(mat)+colSums(mat))/(nr*2))^2*w) 
       se <- sqrt( (1/(1-pe))^2 * (po*(1-po))/(nr-1) )
     
     } else {
       method = paste("Fleiss' kappa")
-      mat <- matrix(unlist(lapply(X=1:mval,function(x) rowSums(data==x))),nr)
+      mat <- sapply(X=1:K,function(x) rowSums(data==x))
       po <- sum(mat*(mat-1))/((nr*nc)*(nc-1))
       pe <- sum(colSums(mat/(nr*nc))^2)
       
@@ -48,21 +38,16 @@
       se <- (2/(sum(pj*qj)^2*(nr*nc*(nc-1)))*(sum(pj*qj)^2-sum(pj*qj*(qj-pj))))^(1/2)
     }
     
-    spi <- (po-pe)/(1-pe)
-    names(spi) <- "Const"
-    ub <- spi+(se*t)
-    lb <- spi-(se*t)
+    est <- (po-pe)/(1-pe)
+    names(est) <- "Const"
+    ub <- est+(se*t)
+    lb <- est-(se*t)
+
+    # Export
+    y <- structure(list(method=method, call=cl, obs=nc, sample=nr,
+                        est=est, se=se, conf.level=conf.level, 
+                        lb=lb, ub=ub, mat=mat, data=data),
+                   class = c("rel","spi"))
+    return(y)
     
-    res <- structure(list(method = method,
-                          call = cl,
-                          obs = nc,
-                          sample = nr,
-                          est = spi,
-                          se = se,
-                          conf.level = conf.level,
-                          lb = lb,
-                          ub = ub,
-                          data = data),
-                     class=c("rel","spi"))
-    return(res)
   }

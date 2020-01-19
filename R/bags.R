@@ -5,38 +5,30 @@
   nr <- nrow(data)
   nc <- ncol(data)
   data <- matrix(as.numeric(as.factor(data)),nr,nc)
+  K <- ifelse(is.numeric(kat),kat,max(data))
+  t <- qt(1-(1-conf.level)/2,nr-1)
   
-  if (nc!=2){
+  # Warning
+  if (nc != 2) {
     stop("The data frame needs to be formatted as a n*2 matrix!")
-  } 
-  
-  if (is.numeric(kat)){
-    mval <- kat
-  } else{
-    mval <- max(data,na.rm=TRUE)
   }
   
-  mat <- matrix(0,mval,mval)
-  p.obs <- table(data[,1],data[,2])/nr
-  mat[as.numeric(rownames(p.obs)), as.numeric(colnames(p.obs))] <- p.obs
-  t <- qt(1-(1-conf.level)/2,nr-1)
-  po <- sum(mat[row(mat) == col(mat)])
-  S <- ((mval*po)-1)/(mval-1) 
-  names(S) <- "Const"
-  se <- sqrt( ((mval/(mval-1))^2 * (po*(1-po)))/(nr-1) )
-  ub <- S+(se*t)
-  lb <- S-(se*t)
+  # Contingency table
+  mat <- ctab(data, K, cl) / nr
   
-  res <- structure(list(method = "Bennett et al.'s S",
-                        call = cl,
-                        obs = nc,
-                        sample = nr,
-                        est = S,
-                        se = se,
-                        conf.level = conf.level,
-                        lb = lb,
-                        ub = ub,
-                        data = data),
-                      class = "rel")
-  return(res)
+  # Point estimate/standard error
+  po <- sum(mat[row(mat) == col(mat)])
+  est <- ((K * po) - 1) / (K - 1)
+  se <- sqrt(((K / (K - 1)) ^ 2 * (po * (1 - po))) / (nr - 1))
+  ub <- est + (se * t)
+  lb <- est - (se * t)
+  names(est) <- "Const"
+  
+  # Export
+  y <- structure(list(method="Bennett et al.'s S", call=cl, obs=nc, 
+                      sample=nr, est=est, se=se, conf.level=conf.level, 
+                      lb=lb, ub=ub, mat=mat, data=data),
+                 class = "rel")
+  return(y)
+  
 }

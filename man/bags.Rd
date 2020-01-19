@@ -16,6 +16,7 @@
 \item{se}{Standard error}
 \item{lb}{Lower confidence boundary}
 \item{ub}{Upper confidence boundary}
+\item{cont.table}{contingency table}
 \item{data}{analyzed data}
 }
 \references{Bennett, E. M., Alpert, R., Goldstein, A. C. (1954). Communications through limited-response questioning. Public Opinion Quarterly, 18(3), 303-308.}

@@ -2,11 +2,11 @@
 \alias{kra}
 \title{Krippendorff's alpha}
 \description{Calculates Krippendorff's alpha as an index of agreement for nominal, ordinal, interval, or ratio scale data.}
-\usage{kra(data = NULL, metric = c("nominal","ordinal","interval","ratio"), 
+\usage{kra(data = NULL, weight = c("nominal","ordinal","interval","ratio"), 
     conf.level = 0.95, R = 0)}
 \arguments{
   \item{data}{A matrix with n subjects and m observations (n*m matrix).}
-  \item{metric}{Data scale metric of ratings specified as "nominal, "ordinal", "interval", or "ratio".}
+  \item{weight}{Data scale of ratings specified as "nominal, "ordinal", "interval", or "ratio".}
   \item{conf.level}{Confidence level of the interval.}
   \item{R}{Number of bootstrap replicates used to estimate the confidence interval.}
 }
@@ -18,9 +18,10 @@ Krippendorff's alpha is a measure of observed disagreement relative to disagreem
 \item{raters}{Number of raters}
 \item{sample}{Sample size}
 \item{na}{Percent of missing values}
-\item{est}{Point estimate.}
+\item{est}{Point estimate}
 \item{lb}{Lower confidence boundary}
 \item{ub}{Upper confidence boundary}
+\item{cont.table}{contingency table}
 \item{data}{analyzed data}
 }
 \references{
@@ -35,6 +36,6 @@ data <- cbind(rbind(1,2,3,3,2,1,4,1,2,NA,NA,NA),
               rbind(1,2,3,3,2,4,4,1,2,5,1,NA))
 
 #Krippendorff's alpha for ordinal scale data
-kra(data = data, metric = "ordinal", conf.level = 0.95, R = 0)
+kra(data = data, weight = "ordinal", conf.level = 0.95, R = 0)
 }
 \keyword{univar}

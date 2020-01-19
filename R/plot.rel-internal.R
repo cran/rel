@@ -13,7 +13,7 @@
              plot(as.vector(t(x$data))~rep(1:x$sample,each=x$obs), 
                   pch=26-1:x$obs, col=1+1:x$obs, bg=1, yaxt="n",
                   main="Observations per subject", xlab="Subject", ylab="Data value")
-             axis(2, las=1, at=min(x$data):max(x$data))
+             axis(2, las=1, at=min(x$data,na.rm=T):max(x$data,na.rm=T))
              abline(v=1:x$sample,col=rgb(0,0,1,0.4),lty=3)
              par(mar=c(0, 0, 0, 0))
              plot.new()
@@ -57,9 +57,9 @@
                   pch=16, col=1, bg=1, cex=0.6,
                   main="Average ratings", xlab="Subject", ylab="Data value")
              abline(v=1:x$sample,col=rgb(0,0,1,0.4),lty=3)
-             abline(h=mean(x$data),lty=3,col=1) #Grand mean
-             abline(h=colMeans(x$data),lty=3,col=1+1:x$obs) #Observation mean
-             points(rowMeans(x$data),pch=22,col=1,bg=18) #Subject mean
+             abline(h=mean(x$data,na.rm=T),lty=3,col=1) #Grand mean
+             abline(h=colMeans(x$data,na.rm=T),lty=3,col=1+1:x$obs) #Observation mean
+             points(rowMeans(x$data,na.rm=T),pch=22,col=1,bg=18) #Subject mean
              par(mar=c(0, 0, 0, 0))
              plot.new()
              legend("left",legend=c("Observation","Subject mean",paste("Obs",1:x$obs,"mean"),"Grand mean"),

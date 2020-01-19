@@ -21,6 +21,7 @@ Gwet's AC has the advantage of not relying on independence between observations 
 \item{se}{Standard error}
 \item{lb}{Lower confidence boundary}
 \item{ub}{Upper confidence boundary}
+\item{cont.table}{contingency table}
 \item{data}{analyzed data}
 }
 \references{
