@@ -14,7 +14,7 @@
   }
   
   # Contingency table
-  mat <- ctab(data, K, cl) / nr
+  mat <- ctab(data, K, "bags") / nr
   
   # Point estimate/standard error
   po <- sum(mat[row(mat) == col(mat)])

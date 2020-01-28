@@ -21,11 +21,11 @@
     }
     
     # Contingency table
-    mat <- ctab(data, K, cl) / nr
+    mat <- ctab(data, K, "gac") / nr
     marg <- (rowSums(mat) + colSums(mat)) / 2
     
     # Weight
-    w <- wgts(weight, cl, mat, K)
+    w <- wgts(weight, "gac", mat, K)
     
     # Point estimate
     po <- sum(mat * w)

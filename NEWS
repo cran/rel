@@ -1,3 +1,7 @@
+Changes in version 1.4.1
+
+    o Fixed a bug which resulted in faulty point estimates för kra (Thanks to Walter Roberto)
+
 Changes in version 1.4.0
 
     o Cleaned up the code.

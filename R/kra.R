@@ -15,7 +15,7 @@
     
     # Contingency table
     K <- max(data,na.rm=TRUE)
-    mat <- ctab(data, K, cl)
+    mat <- ctab(data,K,"kra")
     
     alfa <- function(data,weight,cl,K){
       
@@ -37,21 +37,21 @@
       
       return(est)
     }
-    est <- alfa(data,weight,cl,K)
+    est <- alfa(data,weight,"kra",K)
     
     # Bootstrapped confidence intervals
     if (R == 0 || is.nan(est)){
       cb <- c(NA,NA)
     } else{
-      cb <- quantile(sapply(1:R, function(x) alfa(data[sample(nr, replace=TRUE),], weight,cl,K)), 
-                     probs=c((1-conf.level)/2,conf.level+(1-conf.level)/2), na.rm=TRUE) 
+      cb <- quantile(sapply(1:R, function(x) alfa(data[sample(nr, replace=TRUE),], weight,cl,K)),
+                     probs=c((1-conf.level)/2,conf.level+(1-conf.level)/2), na.rm=TRUE)
     }
     attr(cb,"names") <- "Const"
 
     # Export
     y <- structure(list(method=method, call=cl, obs=nc, sample=nr,
-                        est=est, se=NA, conf.level=conf.level, 
-                        lb=cb[1], ub=cb[2], mat=mat, data=data, 
+                        est=est, se=NA, conf.level=conf.level,
+                        lb=cb[1], ub=cb[2], mat=mat, data=data,
                         na=na),
                    class = c("rel","kra"))
     return(y)

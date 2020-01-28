@@ -14,12 +14,12 @@
   if (nc==2){
     
     # Contingency table
-    mat <- ctab(data, K, cl) / nr
+    mat <- ctab(data, K, "ckap") / nr
     rs <- rowSums(mat)
     cs <- colSums(mat)
     
     # Weight
-    w <- wgts(weight, cl, mat, K)
+    w <- wgts(weight, "ckap", mat, K)
     method <-
       paste0(ifelse(is.numeric(weight), "custom-weighted", weight), ' kappa')
     

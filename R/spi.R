@@ -13,10 +13,10 @@
     if (nc==2){
       
       # Contingency table
-      mat <- ctab(data, K, cl)
+      mat <- ctab(data, K, "spi")
       
       # Weight
-      w <- wgts(weight, cl, mat, K)
+      w <- wgts(weight, "spi", mat, K)
       method <-
         paste0(ifelse(is.numeric(weight), "custom-weighted", weight), ' pi')
 
