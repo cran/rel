@@ -1,6 +1,12 @@
+Changes in version 1.4.2
+
+    o Modified data preparation: unobserved categories are now retained in the contingency table and the weight matrix on the actual category instead of only its ordering. Weighted analyses on data with unobserved categories (limited to linear, quadratic, interval, and ratio weights) or with zero as the minimum category (limited to interval and ratio weights) previously returned erroneous estimates (thanks again for noticing Roberto).
+    
+    o To facilitate quality control, the analyzed continguency table and weight matrix are now returned.
+    
 Changes in version 1.4.1
 
-    o Fixed a bug which resulted in faulty point estimates för kra (Thanks to Walter Roberto)
+    o Fixed kra which returned faulty point estimates due to changes in 1.4.0 (Thanks to Roberto Walter)
 
 Changes in version 1.4.0
 

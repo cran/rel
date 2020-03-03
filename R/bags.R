@@ -1,12 +1,10 @@
-"bags" <- function(data = NULL, kat = NULL, conf.level = 0.95) {
-  
+"bags" <- function(data = NULL,
+                   kat = NULL,
+                   conf.level = 0.95) {
+  # Prepare
   cl <- match.call()
-  data <- as.matrix(na.omit(data))
-  nr <- nrow(data)
-  nc <- ncol(data)
-  data <- matrix(as.numeric(as.factor(data)),nr,nc)
-  K <- ifelse(is.numeric(kat),kat,max(data))
-  t <- qt(1-(1-conf.level)/2,nr-1)
+  na <- method <- weight <- nr <- nc <- K <- t <- zero <- NULL
+  list2env(prepd(data, "bags", weight, conf.level, kat), envir = environment())
   
   # Warning
   if (nc != 2) {
@@ -14,7 +12,7 @@
   }
   
   # Contingency table
-  mat <- ctab(data, K, "bags") / nr
+  mat <- ctab(data, K, "bags", zero) / nr
   
   # Point estimate/standard error
   po <- sum(mat[row(mat) == col(mat)])
@@ -25,10 +23,23 @@
   names(est) <- "Const"
   
   # Export
-  y <- structure(list(method="Bennett et al.'s S", call=cl, obs=nc, 
-                      sample=nr, est=est, se=se, conf.level=conf.level, 
-                      lb=lb, ub=ub, mat=mat, data=data),
-                 class = "rel")
+  y <- structure(
+    list(
+      method = method,
+      call = cl,
+      obs = nc,
+      sample = nr,
+      est = est,
+      se = se,
+      conf.level = conf.level,
+      lb = lb,
+      ub = ub,
+      mat = mat*nr,
+      weight = NA,
+      data = data
+    ),
+    class = "rel"
+  )
   return(y)
   
 }
